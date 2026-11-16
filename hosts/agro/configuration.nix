@@ -5,13 +5,12 @@
 { config, inputs, pkgs, ... }:
 
 {
+	
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./hyprland.nix
       ./../../modules/core
-      #./update.nix
-      #./xp_pen_pentablet.nix
     ];
 
   # Bootloader
@@ -46,58 +45,6 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  # NVIDIA config
-
-  # services.pulseaudio.enable = true;
-
-  #services.printing.enable = true;
-
-  #services.xserver.enable = true;
-  #services.xserver.videoDrivers = [ "nvidia" "modesetting" ];
-  #services.xserver.libinput.enable = true;
-  #services.xserver.wacom.enable = true;
-
-  #hardware.graphics.enable = true;
-  #hardware.graphics.extraPackages = [ pkgs.mesa.drivers ];
-
-  #hardware.nvidia = {
-
-   # open = true;
-    #modesetting.enable = true;
-    #package = config.boot.kernelPackages.nvidiaPackages.latest;
-    #package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-
-     # version = "565.77";
-      #sha256_64bit = "sha256-CnqnQsRrzzTXZpgkAtF7PbH9s7wbiTRNcM0SPByzFHw=";
-      #openSha256 = "sha256-Fxo0t61KQDs71YA8u7arY+503wkAc1foaa51vi2Pl5I=";
-      #settingsSha256 = "sha256-VUetj3LlOSz/LB+DDfMCN34uA4bNTTpjDrb6C6Iwukk=";
-      #persistencedSha256 = "sha256-BMpo2pIabhHjZQqUQi/W5DYhgAPmfCdFvXdN6ND2Bfs=";
-
-    #};
-
-    #nvidiaSettings = true;
-
-    #prime = {
-
-      #offload.enable = true;
-
-      #nvidiaBusId = "PCI:1:00:0";
-      #intelBusId = "PCI:0:02:0";
-
-    #};
-
-    #powerManagement = {
-      
-      #enable = true;
-      #finegrained = true;
-
-    #};
- 
-    #forceFullCompositionPipeline = true;
-
-  #};
-
-  #hardware.opentabletdriver.enable = true;
   #hardware.opentabletdriver.daemon.enable = true;
   #hardware.uinput.enable = true;
 
@@ -182,12 +129,12 @@
 	"emettej"
   ];
 
-  users.users."emettej" = {
-    isNormalUser = true;
-    description = "Emette Jones";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [];
-  };
+  #users.users."emettej" = {
+    #isNormalUser = true;
+    #description = "Emette Jones";
+    #extraGroups = [ "networkmanager" "wheel" ];
+    #packages = with pkgs; [];
+  #};
 
   # Programs
 

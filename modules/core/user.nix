@@ -31,7 +31,7 @@
 			"networkkmanager"
 			"wheel"
 		];
-	}
+	};
 	
-	nix.settings.allowed-user = [ "${username}" ];
+	nix.settings.allowed-users = [ "${username}" ];
 }
