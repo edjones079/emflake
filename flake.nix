@@ -42,7 +42,8 @@
 
 	# Outputs - A function that takes an attribute set of inputs to build the declared outputs!
 
-	outputs = { self, nixpkgs, home-manager, ... }@inputs: 
+	outputs = 
+	{ self, nixpkgs, home-manager, hyprland, ... }@inputs: 
 
 	# Define local variables for use in system & user configuration!
 
@@ -67,38 +68,48 @@
 			overlays = []; # overlays = [];
 
 		};
-	
+
+		username = "emettej";
 		system = "x86_64-linux";
   	in
   	{
     
-		nixosConfigurations = { 
+	  	nixosConfigurations = { 
 
-			wander = nixpkgs.lib.nixosSystem {
+	    		wander = nixpkgs.lib.nixosSystem {
+			    inherit system;
+	      		    modules = [
+	        	        ./hosts/wander/configuration.nix
+				home-manager.nixosModules.home-manager {
+	          		    home-manager = {
+					useGlobalPkgs = true;
+	            			useUserPackages = true;
+	            			extraSpecialArgs = { inherit inputs; };
+                    			users.electrickazoo = import ./hosts/wander/home.nix;
+				    };
+	        		}
+	      		    ];
+	      		    specialArgs = { inherit inputs; };
+    	   		};
 
-				specialArgs = { inherit inputs; };
-				modules = [
-	
-					./hosts/wander/modules/configuration.nix
-					./hosts/wander/modules/fhs.nix
-
-					home-manager.nixosModules.default
-					{
-
-						home-manager = {
-
-	    						useGlobalPkgs = true;
-	    						useUserPackages = true;
-	    						extraSpecialArgs = { inherit inputs; };
-	    						users.electrickazoo = import ./hosts/wander/home.nix;
-
-	  					};
-
-					}
-
-				];
-
-    			};
+	   		agro = nixpkgs.lib.nixosSystem {
+	     		    inherit system;
+			    modules = [
+				./hosts/agro
+				#home-manager.nixosModules.home-manager {
+		 		#    home-manager = {
+		   		#	useGlobalPkgs = true;
+	    	   		#	useUserPackages = true;
+	    	   		#	extraSpecialArgs = { inherit inputs; };
+	    	   		#	users.emettej = import ./hosts/agro/home.nix;
+		 		#    };
+	       			#}
+			    ];
+			    specialArgs = {
+				host = "agro";
+				inherit self inputs username;
+			    };
+			};
 
 			#framework = hosts.mkHost {
 			#	name = "agro";
@@ -125,31 +136,6 @@
 			#	cpuCores = 4;
 			#};
 
-    			agro = nixpkgs.lib.nixosSystem {
-
-				specialArgs = { inherit inputs; };
-				modules = [
-
-					./hosts/agro/modules/configuration.nix
-
-					home-manager.nixosModules.home-manager
-					{
-
-						home-manager = {
-
-	    						useGlobalPkgs = true;
-	    						useUserPackages = true;
-	    						extraSpecialArgs = { inherit inputs; };
-	    						users.emettej = import ./hosts/agro/modules/home.nix;
-
-	  					};
-
-					}
-
-				];
-
-			};
 		};
-	};
-
+  	};
 }

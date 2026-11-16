@@ -9,6 +9,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./hyprland.nix
+      ./../../modules/core
       #./update.nix
       #./xp_pen_pentablet.nix
     ];
@@ -191,7 +192,7 @@
   # Programs
 
   programs = {
-
+  	dconf.enable = true;
     # foot.enable = true;
     # firefox.enable = true;
     # steam.enable = true;
