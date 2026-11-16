@@ -2,8 +2,8 @@
 
 {
 
-	wayland.windowManager.hyprland.settings.exec-once = [
-
+	wayland.windowManager.hyprland.settings.exec_cmd = [
+		
 		"waybar"
 
 	];

@@ -4,7 +4,10 @@
 
 	wayland.windowManager.hyprland.settings = {
 		
-		input = {
+		mod = { _var = "SUPER"; };
+		terminal = { _var = "kitty"; };
+
+		config.input = {
 
 		    kb_layout = "us,de";
 		    kb_options = "grp:alt_caps_toggle";
@@ -13,7 +16,7 @@
 
 		};
 
-		general = {
+		config.general = {
 			
 		    layout = "dwindle";
 
@@ -21,12 +24,9 @@
 		    gaps_out = 20;
 		    border_size = 2;
 
-		    "col.active_border" = "rgba(33ccffee) rgba(00ff99eee) 45deg";
-		    "col.inactive_border" = "rgba(595959aa)";
-
 		};
 
-		decoration = {
+		config.decoration = {
 
 		    rounding = 10;
 
@@ -41,15 +41,17 @@
 
 		    blur = {
 			
-			enable = true;
+			enabled = true;
 			size = 3;
 			passes = 1;
 
 		    };
 
-		    animations = {
-			enabled = true;
-		    };
+		};
+
+		config.animations = {
+
+		    enabled = true;
 
 		};
 
