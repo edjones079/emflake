@@ -16,8 +16,6 @@
 
 		};
 
-		# nixgl.url = "github:nix-community/nixGL";
-
 		firefox.url = "github:nix-community/flake-firefox-nightly";
 		firefox.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -48,18 +46,9 @@
 	# Define local variables for use in system & user configuration!
 
 	let
-		# inherit - Create copy of variables & functionz from lib.nix!
+		# inherit - Create copy of variables & functions from lib.nix!
 
 		inherit (nixpkgs) lib; # lib = nixpkgs.lib;
-
-		# import - Load, parse, and return Nix expression in the file path!
-
-		util = import ./lib {  # util = lib.$(functions);
-			inherit system pkgs home-manager lib; overlays = (pkgs.overlays);
-		};
-
-		inherit (util) user; # user = util.user;
-		inherit (util) host; # host = util.host;
 
 		pkgs = import nixpkgs {
 
@@ -73,7 +62,24 @@
 		system = "x86_64-linux";
   	in
   	{
-    
+   		coreModules = {
+			
+			default = { config, lib, pkgs, ... }:
+			{
+			    imports = [ (import ./modules/core/default.nix inputs) ];
+			};
+
+		};
+
+		homeModules = {
+			
+			default = { config, lib, pkgs, ... }:
+			{
+			    imports = [ (import ./modules/home/default.nix inputs) ];
+			};
+
+		};
+
 	  	nixosConfigurations = { 
 
 	    		wander = nixpkgs.lib.nixosSystem {
@@ -110,32 +116,6 @@
 				inherit self inputs username;
 			    };
 			};
-
-			#framework = hosts.mkHost {
-			#	name = "agro";
-			#	NICs = [ "wlp2s0" "lo" "eth0" "p2p-dev-wlp1s0" ];
-			#	kernelPackage = pkgs.linuxPackages;
-			#	initrdMods = [ 
-			#		"xhci_pci"
-			#		"nvme"
-			#		"usb_storage"
-			#		"sd_mod"
-			#		"thunderbolt"
-			#		"usbhid"
-			#	];
-			#	kernelMods = [ "kvm-amd" ];
-			#	kernelParams = [];
-			#	systemConfig = { };
-
-			#	users = [{
-			#		name = "emettej";
-			#		groups = [ "wheel" "networkmanager" "video" ];
-			#		udi = 1000;
-			#	}];
-
-			#	cpuCores = 4;
-			#};
-
 		};
   	};
 }

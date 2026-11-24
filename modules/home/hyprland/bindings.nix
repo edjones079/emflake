@@ -5,7 +5,7 @@
 
 		bind = [
 
-		    "$mod,  Q, exec, $terminal" 
+		#    "$mod, Q, exec, $terminal --gtk-single-instance=true" 
 
 		];
 

@@ -1,11 +1,8 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
 
 # ----- Creating Home Environment 
-
-#	home.username = "emettej";
-#	home.homeDirectory = "/home/emettej";
 
 	wayland.windowManager.hyprland = {
 
@@ -39,6 +36,12 @@
 
 	];
 
-#	programs.home-manager.enable = true;
-#	home.stateVersion = "26.05";
+# ----- Default Application Variables
+
+	wayland.windowManager.hyprland.settings = {
+
+		"$terminal" = lib.mkDefault "kitty";
+
+	};
+
 }

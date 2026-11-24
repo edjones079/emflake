@@ -4,6 +4,7 @@
 # Misterio
 # EmergentOS
 # John's Codes
+# Omarchy-nix
 
 # --- Principles --- #
 
